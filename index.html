@@ -34,6 +34,21 @@
             }
     </style>
 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .accordion-header {
+            font-weight: bold;
+        }
+        .accordion-item {
+            margin-bottom: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -1858,7 +1873,47 @@
             <span style="color: black;"><font face="Tahoma">A completar</font></span><br style="margin-bottom: 0;">
         </p>
 
-</div>    
+
+        <script>
+            document.querySelectorAll('.accordion-item').forEach((item) => {
+                item.addEventListener('toggle', (event) => {
+                    if (item.open) {
+                        hideSiblings(item);
+                    } else {
+                        showSiblings(item);
+                    }
+                });
+            });
+    
+            function hideSiblings(item) {
+                const parent = item.parentElement;
+                parent.querySelectorAll(':scope > details.accordion-item').forEach((sibling) => {
+                    if (sibling !== item) {
+                        sibling.classList.add('hidden');
+                        sibling.open = false;
+                    } else {
+                        sibling.classList.remove('hidden');
+                    }
+                });
+            }
+    
+            function showSiblings(item) {
+                const parent = item.parentElement;
+                parent.querySelectorAll(':scope > details.accordion-item').forEach((sibling) => {
+                    sibling.classList.remove('hidden');
+                });
+            }
+        </script>
+
+
+
+</div>
+
+
+
+
+
+
 </body>
 </html>
 
